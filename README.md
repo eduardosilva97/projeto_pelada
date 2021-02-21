@@ -4,6 +4,7 @@ O projeto pelada tem como objetivo simplificar a organização de peladas.
 
 Para seu desenvolvimento foram utilizadas as seguintes ferramentas:
 
+- Java 8 com a JDK 1.8.0_202
 - Eclipse IDE 2020-03
 - Jboss Tools 4.15.0.final
 - WildFly 15.0
