@@ -1,0 +1,106 @@
+@import url("#{resource['default:fonts/opensans/opensans.css']}");
+@import url("#{resource['default:fonts/custom-icons/custom-icons.css']}");
+
+html,body { margin: 0; padding: 0; height: 100%; font: normal normal normal 14px/1 'Open Sans', sans-serif; }
+
+.locked-scrollbar { overflow: hidden !important; background: #F3F3F3 !important; }
+.locked-scrollbar.scrollbar-space { margin-right: 17px; }
+.locked-scrollbar.scrollbar-space .main-header { width: calc(100% - 17px); }
+
+/* common */
+.bold { font-weight: bold; }
+
+.upper { text-transform: uppercase; }
+.lower { text-transform: lowercase; }
+.non-text-transform { text-transform: none; }
+
+.nowrap { white-space: nowrap; }
+
+.text-white { color: #FFF !important; text-shadow: 0px 1px 1px rgba(0,0,0,.6); }
+.text-black { color: #000 !important; text-shadow: 0px 1px 1px rgba(255,255,255,.8); }
+
+.table-auto,
+.table-auto > table,
+.table-auto > .ui-datatable-tablewrapper > table { table-layout: auto !important; }
+.table-fixed,
+.table-fixed > table,
+.table-fixed > .ui-datatable-tablewrapper > table { table-layout: fixed !important; }
+
+.align-left,
+.align-left.ui-datatable td,
+.align-left.ui-datatable th,
+.align-left.align-center td,
+.align-left.align-center th { text-align: left !important; }
+.align-center,
+.align-center.ui-datatable td,
+.align-center.ui-datatable th,
+.align-center.align-center td,
+.align-center.align-center th { text-align: center !important; }
+.align-right,
+.align-right.ui-datatable td,
+.align-right.ui-datatable th,
+.align-right.align-center td,
+.align-right.align-center th { text-align: right !important; }
+.align-justify,
+.align-justify.ui-datatable td,
+.align-justify.ui-datatable th,
+.align-justify.align-center td,
+.align-justify.align-center th { text-align: justify !important; }
+
+.align-end { align-self: flex-end; }
+
+.pull-right { float: right; }
+.pull-right > * { margin-right: 0; }
+.pull-left { float: left; }
+.pull-left > * { margin-left: 0; }
+
+.clearfix:after { content: " "; clear: both; display: table; height: 0; }
+
+.hide { display: none; }
+.hide-hack { visibility: hidden; width: 0; height: 0; overflow: hidden; position: absolute; clip: rect(0px,0px,0px,0px); opacity: 0; top: 0; left: 0; z-index: -1; }
+
+.tab-1 { margin-left: 10px !important; }
+.tab-2 { margin-left: 20px !important; }
+.tab-3 { margin-left: 30px !important; }
+.tab-4 { margin-left: 40px !important; }
+.tab-5 { margin-left: 50px !important; }
+.tab-6 { margin-left: 60px !important; }
+.tab-7 { margin-left: 70px !important; }
+.tab-8 { margin-left: 80px !important; }
+.tab-9 { margin-left: 90px !important; }
+.tab-10{ margin-left: 100px !important; }
+
+.space-top-1 { margin-top: 10px !important }
+.space-top-2 { margin-top: 20px !important }
+.space-top-3 { margin-top: 30px !important }
+.space-top-4 { margin-top: 40px !important }
+.space-top-5 { margin-top: 50px !important }
+.space-top-6 { margin-top: 60px !important }
+.space-top-7 { margin-top: 70px !important }
+.space-top-8 { margin-top: 80px !important }
+.space-top-9 { margin-top: 90px !important }
+.space-top-10{ margin-top: 100px !important }
+
+.space-bottom-1 { margin-bottom: 10px !important }
+.space-bottom-2 { margin-bottom: 20px !important }
+.space-bottom-3 { margin-bottom: 30px !important }
+.space-bottom-4 { margin-bottom: 40px !important }
+.space-bottom-5 { margin-bottom: 50px !important }
+.space-bottom-6 { margin-bottom: 60px !important }
+.space-bottom-7 { margin-bottom: 70px !important }
+.space-bottom-8 { margin-bottom: 80px !important }
+.space-bottom-9 { margin-bottom: 90px !important }
+.space-bottom-10{ margin-bottom: 100px !important }
+
+.cursor-hand { cursor: pointer; }
+
+.circle-radius { border-radius: 50%; }
+
+/* logos */
+
+.logo { display: inline-block; overflow: hidden; text-indent: -9999%;background-image: url(#{resource['imagens/logo-sembg.png']}); background-repeat: no-repeat; background-position: center; background-size: contain; }
+
+.logo {background-image: url(#{resource['imagens/logo-sembg.png']}); background-size: 75px; width: 100%; height: 100%;}
+
+	
+}

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/main.xhtml">
+	<ui:define name="content">
+
+		<h2>
+			<b>Minhas Peladas</b>
+		</h2>
+		<p:panel id="painelPerfil" class="panel-container">
+			<p:fieldset id="fieldFilters" toggleable="true" collapsed="false"
+				toggleSpeed="500">
+				<f:facet name="legend">
+					<i class="fa fa-search"></i>
+					Filtro De Pesquisa
+				</f:facet>
+				<h:form id="formFilter">
+					<div class="form-group">
+						<h:outputLabel for="filtroNome" value="Nome do evento esportivo: " />
+						<p:inputText id="filtroNome" value="#{usuarioPeladaBean.pelada.nome}" maxlength="100"
+							styleClass="form-control" />
+					</div>	
+					<div class="form-group">
+						<h:outputLabel for="filtroDataInicio" value="Data:" />	
+					</div>		
+					<div class="column-group">								
+							
+						<p:datePicker id="filtroDataInicio" value="#{usuarioPeladaBean.dataInicio}" style="width: 100%" mask="true"  pattern="dd/MM/yyyy" showTime="true" converter="localDateTimeFacesConverter"/>
+						
+						<p:datePicker id="filtroDataFim" value="#{usuarioPeladaBean.dataFim}" style="width: 100%" mask="true"  pattern="dd/MM/yyyy" showTime="true" converter="localDateTimeFacesConverter"/>
+					</div>		
+										
+	
+					<div class="form-group">
+						<h:outputLabel for="filtroLocal" value="Local:" />
+						<p:inputText id="filtroLocal" value="#{usuarioPeladaBean.pelada.local}" maxlength="100"
+							styleClass="form-control" />
+					</div>	
+								
+					<div class="button-actions">
+						<p:commandButton id="btnFiltrar" value="Filtrar"
+							icon="fa fa-filter" action="#{usuarioPeladaBean.filtrar}" title="Filtrar"
+							styleClass="default-button default-button-blue" update="dataTableForm:tableResult"/>
+						<p:commandButton id="btnLimpar" value="Limpar"
+							icon="fa fa-eraser" action="#{usuarioPeladaBean.limparFiltro}"
+							styleClass="default-button default-button-lightblue" title="Limpar"
+							update="dataTableForm:tableResult,formFilter" />
+					</div>
+				</h:form>
+			</p:fieldset>
+			<div class="button-actions">
+				<p:commandButton value="Novo" icon="fa fa-plus" title="Nova Pelada"
+					styleClass="default-button default-button-green small"
+					onclick="location.href = 'cadastro.xhtml'" rendered="true"/>
+			</div>
+	
+			<h:form id="dataTableForm">
+				<p:dataTable id="tableResult" value="#{usuarioPeladaBean.items}" var="p"
+					paginator="true" reflow="true" paginatorAlwaysVisible="false" rows="20"
+					tableStyle="table-layout: auto; text-align:center"
+					emptyMessage="Nenhuma pelada encontrada"
+					paginatorPosition="bottom" sortBy="#{p.pelada.nome}">
+					<p:column id="colunaNome" headerText="Nome" sortBy="#{p.pelada.nome}">
+						<h:outputText value="#{p.pelada.nome}"/>
+					</p:column>
+					<p:column id="colunaData" headerText="Data" sortBy="#{p.pelada.data}">
+						<h:outputText value="#{p.pelada.data}" converter="localDateTimeFacesConverter" />
+					</p:column>
+					<p:column id="colunaLocal" headerText="Local" sortBy="#{p.pelada.local}">
+						<h:outputText value="#{p.pelada.local}" />
+					</p:column>	
+					<p:column id="colunaStatus" headerText="Status do convite" sortBy="#{p.confirmacaoConvite}">
+						<h:outputText value="#{p.confirmacaoConvite == null ? 'Pendente' : (p.confirmacaoConvite ? 'Aceito' : 'Recusado')}" />
+					</p:column>	
+					<p:column id="colunaAcoes" headerText="Ações" styleClass="coluna-acao">
+						<p:commandButton id="btnAceitar" value="Aceitar Convite" title="Aceitar Convite"
+							icon="fa fa-check" styleClass="icon-only" rendered="#{p.confirmacaoConvite == null}" actionListener="#{usuarioPeladaBean.aceitarConvite(p)}" update="dataTableForm">		
+							
+						</p:commandButton> 
+						<p:commandButton id="btnRecusar" value="Recusar Convite" title="Recusar Convite"
+							icon="fa fa-close" styleClass="icon-only"	rendered="#{p.confirmacaoConvite == null}" actionListener="#{usuarioPeladaBean.recusarConvite(p)}" update="dataTableForm">		
+							<f:setPropertyActionListener value="#{p.pelada}" target="#{usuarioPeladaBean.item}" />	
+						</p:commandButton>
+						<p:commandButton id="btnEditar" value="Editar" title="Editar"
+							icon="fa fa-pencil" styleClass="icon-only"
+							onclick="location.href = 'cadastro.xhtml?id=#{p.pelada.id}'" rendered="#{p.isCriador}">
+						</p:commandButton> 
+						<p:commandButton id="btnRemover" value="Remover" title="Remover"
+							icon="fa fa-trash-o" styleClass="icon-only" process="@this"
+							onclick="PF('removeModal').show();" rendered="#{p.isCriador}">
+							<f:setPropertyActionListener value="#{p}" target="#{usuarioPeladaBean.item}" />	
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+				
+			<!-- Dialogo de confirmação de remoção -->
+		
+			<p:dialog id="removeModal" widgetVar="removeModal"
+				styleClass="confirmModal-container" global="true" modal="true"
+				showEffect="fade" hideEffect="fade" closable="false"
+				resizable="false" header="Confirmar exclusão">
+				<div class="panel-content">
+					<div class="panel-body">
+						<p:outputLabel id="mensagemExclusao" value="Você realmente deseja excluir esta pelada?" />
+					</div>
+						<br />
+					<div class="button-actions">
+						<p:commandButton id="btnConfirmaRemover" value="Excluir"
+							type="submit" title="Excluir"
+							styleClass="default-button default-button-red small"
+							icon="fa fa-check" actionListener="#{usuarioPeladaBean.remover}"
+							update="dataTableForm"
+							oncomplete="PF('removeModal').hide();"/>
+						<p:commandButton id="btnCancelarRemocao" value="Cancelar"
+							onclick="PF('removeModal').hide();" type="button" title="Cancelar"
+							styleClass="default-button default-button-orange small"
+							icon="fa fa-ban" />
+					</div>
+				</div>
+			</p:dialog>
+			
+		</p:panel>
+	</ui:define>
+</ui:composition>

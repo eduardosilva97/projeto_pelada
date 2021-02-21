@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	template="/WEB-INF/templates/main.xhtml">
+	<ui:define name="content">
+
+		<h2>
+			<b>Nova Pelada</b>
+		</h2>
+			<p:panel id="painelPelada" header="#{usuarioPeladaBean.flagEdit ? 'Editar' : 'Nova'} Pelada" class="panel-container">		
+				<hr/>
+				<h:form id="formPelada">
+					<div class="form-group">
+						<h:outputLabel for="inputNome" value="Nome do evento esportivo: " />
+						<p:inputText id="inputNome" value="#{usuarioPeladaBean.pelada.nome}" maxlength="100"
+							styleClass="form-control" />
+					</div>
+					<div class="form-group">
+					
+						<h:outputLabel for="inputData" value="Data e Hora:" />
+						<p:datePicker id="basic" value="#{usuarioPeladaBean.pelada.data}" style="width: 100%"  pattern="dd/MM/yyyy" showTime="true" converter="localDateTimeFacesConverter"/>
+					</div>						
+	
+					<div class="form-group">
+						<h:outputLabel for="inputLocal" value="Local:" />
+						<p:inputText id="inputData" value="#{usuarioPeladaBean.pelada.local}" maxlength="100"
+							styleClass="form-control" />
+					</div>	
+					
+					<div class="form-group">
+						<h:outputLabel for="usuariosMenu" value="Integrantes: " /> <br/>
+						<p:selectCheckboxMenu id="usuariosMenu" value="#{usuarioPeladaBean.usuariosSelecionados}" label="Usuários" style="max-width: 94%; margin-right: 10px"
+                            converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains"  >
+			            	<f:selectItems value="#{usuarioPeladaBean.usuarios}"  var="u" itemLabel="#{u.nome}" itemValue="#{u}"  />
+				        </p:selectCheckboxMenu>
+					    <p:commandButton id="btnIncluir" value="Incluir" type="submit" title="Incluir" style="position: absolute; margin-top: .3rem;"
+							styleClass="default-button default-button-green" update="usuariosMenu, usuariosAssociados"
+							icon="fa fa-plus" actionListener="#{usuarioPeladaBean.adicionarUsuarios}"/>
+					</div>				
+											
+					<br/>
+					<p:dataTable id="usuariosAssociados" value="#{usuarioPeladaBean.pelada.usuarios}" var="u"
+					paginator="true" reflow="true" paginatorAlwaysVisible="false" tableStyle="table-layout: auto; text-align:center"
+					emptyMessage="Nenhum usuário associado" paginatorPosition="bottom" sortBy="#{u.usuario.nome}">
+					<p:column id="colunaNome" headerText="Nome" sortBy="#{u.usuario.nome}">
+						<h:outputText value="#{u.usuario.nome}" />
+					</p:column>
+					<p:column id="colunaDataInclusao" headerText="Apelido" sortBy="#{u.usuario.apelido}">
+						<h:outputText value="#{u.usuario.apelido}" />
+					</p:column>
+					<p:column id="colunaAtivo" headerText="Status do convite" sortBy="#{u.confirmacaoConvite}">
+						<h:outputText value="#{u.confirmacaoConvite == null ? 'Pendente' : (u.confirmacaoConvite ? 'Aceito' : 'Recusado')}" />
+					</p:column>
+					<p:column id="colunaAcoes" headerText="Ações" styleClass="coluna-acao" >
+						<p:commandButton id="btnRemover" value="Remover" title="Remover"  rendered="#{!u.isCriador}"
+							icon="fa fa-trash-o" styleClass="icon-only" actionListener="#{usuarioPeladaBean.removeAssociacao(u)}" update="usuariosAssociados, formPelada:usuariosMenu"/>
+					</p:column>
+				</p:dataTable>
+					
+					<!-- Operações do Pelada -->
+
+					<div class="button-actions">
+						<p:commandButton id="btnSalvar" value="Salvar" type="submit" title="Salvar"
+							styleClass="default-button default-button-green"
+							icon="fa fa-check" actionListener="#{usuarioPeladaBean.cadastrar}"/>
+
+						<h:outputText value="&#160;" />
+
+						<p:commandButton id="btnCancelar" value="Cancelar"
+							onclick="location.href = 'listagem.xhtml'" type="button" title="Cancelar"
+							styleClass="default-button default-button-red" icon="fa fa-ban" />
+					</div>
+					<p:blockUI id="blockPeladas" block="painelPelada" trigger="btnSalvar"/>
+				</h:form>
+		</p:panel>
+		<p:ajaxStatus  onstart="PF('loadDialog').show()"  oncomplete="PF('loadDialog').hide()" onerror="PF('loadDialog').hide()" onsuccess="PF('loadDialog').hide()"/>
+	
+		<p:dialog widgetVar="loadDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" style="background:transparent; border:none; box-shadow:none !important;">
+		    <p:graphicImage name="load.gif" library="imagens" style="max-width: 50%;"/>
+		</p:dialog>
+    </ui:define>
+</ui:composition>

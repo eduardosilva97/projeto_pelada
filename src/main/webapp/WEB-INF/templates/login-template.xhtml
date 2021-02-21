@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+	    xmlns:h="http://java.sun.com/jsf/html"
+	    xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+		<title>Projeto Pelada</title>
+		<link rel="stylesheet" href="#{request.contextPath}/resources/css/bootstrap.css" />
+		<link rel="stylesheet" href="#{request.contextPath}/resources/css/components.css" />
+		<link rel="stylesheet" href="#{request.contextPath}/resources/css/common.css" />
+		<link rel="stylesheet" href="#{request.contextPath}/resources/css/login.css" />
+	</h:head>
+	
+	<p:button></p:button>
+	<h:body>
+		
+		<h:form id="mainForm">
+	
+			<!-- GLOBAL MESSAGES -->
+
+ 			<p:growl id="globalMessages" sticky="false" showSummary="false" showDetail="true" closable="true" widgetVar="growl_global" life="5000">
+ 				<p:autoUpdate/>
+ 			</p:growl>
+			
+			<div class="login-container">		
+				
+				<div class="login-box">
+				
+				<div class="group-logo">
+					<p:graphicImage id="logo" class="imagem-logo"
+						value="#{resource['imagens/logo.png']}" />
+				</div>
+				
+
+				<div class="inner">
+					
+						<ui:insert name="content" />
+						
+					</div>
+					
+				</div>
+				
+				<div class="login-footer">
+					<h5><a href="#{request.contextPath}" class="logo" style="color: #09800F; font-weight: bold;">Projeto Pelada</a></h5>
+				</div>
+				
+			</div>
+		</h:form>
+
+	</h:body>
+</html>

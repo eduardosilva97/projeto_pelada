@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	template="/WEB-INF/templates/main.xhtml">
+	<ui:define name="content">
+
+		<h2>
+			<b>Visualizar Pelada</b>
+		</h2>
+			<p:panel id="painelPelada" header="#{peladaBean.item.nome}" class="panel-container">		
+				<hr/>
+				<h:form id="formPelada">
+					<div class="form-group">
+						<h:outputLabel for="inputNome" value="Nome do evento esportivo: " />
+						<p:inputText id="inputNome" value="#{peladaBean.item.nome}" maxlength="100" disabled= "true"
+							styleClass="form-control" />
+					</div>
+					<div class="form-group">
+					
+						<h:outputLabel for="inputData" value="Data e Hora:" />
+						<p:datePicker id="basic" value="#{peladaBean.item.data}" style="width: 100%" disabled= "true"  pattern="dd/MM/yyyy" showTime="true" converter="localDateTimeFacesConverter"/>
+					</div>						
+	
+					<div class="form-group">
+						<h:outputLabel for="inputLocal" value="Local:" />
+						<p:inputText id="inputData" value="#{peladaBean.item.local}" maxlength="100" disabled= "true"
+							styleClass="form-control" />
+					</div>							
+					<br/>
+					<div class="form-group">
+						<h:outputLabel for="usuariosAssociados" value="Usuarios Associados: " />
+						<p:dataTable id="usuariosAssociados" value="#{peladaBean.item.usuarios}" var="u"
+						paginator="true" reflow="true" paginatorAlwaysVisible="false" tableStyle="table-layout: auto; text-align:center"
+						emptyMessage="Nenhum usuário associado" paginatorPosition="bottom" sortBy="#{u.usuario.nome}">
+						<p:column id="colunaNome" headerText="Nome" sortBy="#{u.usuario.nome}">
+							<h:outputText value="#{u.usuario.nome}" />
+						</p:column>
+						<p:column id="colunaDataInclusao" headerText="Apelido" sortBy="#{u.usuario.apelido}">
+							<h:outputText value="#{u.usuario.apelido}" />
+						</p:column>
+						<p:column id="colunaAtivo" headerText="Status do convite" sortBy="#{u.confirmacaoConvite}">
+							<h:outputText value="#{u.confirmacaoConvite == null ? 'Pendente' : (u.confirmacaoConvite ? 'Aceito' : 'Recusado')}" />
+						</p:column>
+					</p:dataTable>
+						<div class="button-actions">
+							<p:commandButton id="btnCancelar" value="Voltar"
+								onclick="location.href = 'listagem.xhtml'" type="button" title="Voltar"
+								styleClass="default-button default-button-red" icon="fa fa-ban" />
+						</div>
+					</div>
+				</h:form>
+		</p:panel>
+		<p:ajaxStatus  onstart="PF('loadDialog').show()"  oncomplete="PF('loadDialog').hide()" onerror="PF('loadDialog').hide()" onsuccess="PF('loadDialog').hide()"/>
+	
+    </ui:define>
+</ui:composition>

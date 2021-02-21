@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/login-template.xhtml">
+
+	<ui:define name="content"> 
+
+		<h:form id="loginForm">
+			<c:if test="${param.error != null}">
+			    <p:growl id="loginGrowl">
+			        <f:event type="preRenderComponent" listener="#{loginBean.preRender}" />
+			        <f:attribute name="error" value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
+			    </p:growl>
+			</c:if>
+				
+			<div class="field-icon-wrapper">
+				
+				<p:inputText placeholder="Usuário" id="username" maxlength="50" required="true" requiredMessage="Campo Usuário obrigatório" alt="Campo usuário" />
+	
+				<i class="fa fa-user"></i>
+			</div>
+		
+			<div class="field-icon-wrapper">
+	
+				<p:password placeholder="Senha" id="password" maxlength="12" required="true" requiredMessage="Campo Senha obrigatório" alt="Campo Senha" ajax="false"/>
+	
+				<i class="fa fa-lock"></i>
+			</div>
+			
+			<div class="field-icon-wrapper">
+				<a id="linkCadastroUsuario" href="#{request.contextPath}/public/cadastroUsuario/cadastroUsuario.xhtml">
+				<span class="text bold">Cadastre-se</span>
+				</a>
+			</div>
+			<div class="wrapper">
+				<h:commandButton id="signin" type="submit" value="Login" styleClass="flat-button state-success st-1 botao-login" > 
+					<i style="font-size: 1.865em;				 				 	
+					 	position: relative;				   
+					    color: #f8f9fa;
+					    cursor: pointer;
+					    bottom: 56px;
+					    left: 132px;"
+					   class="fa fa-check"/>
+				 </h:commandButton>
+			</div>
+		
+		</h:form>
+	</ui:define>
+</ui:composition>
