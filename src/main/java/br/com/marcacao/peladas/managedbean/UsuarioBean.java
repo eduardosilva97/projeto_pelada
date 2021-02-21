@@ -64,8 +64,9 @@ public class UsuarioBean extends AbstractBean implements Serializable  {
 
 		try {
 
-			if (Validador.validarEmail(this.item.getEmail())) {				
-				if(this.confirmaSenha.equals(senha)) {
+			if (Validador.validarEmail(this.item.getEmail())) {	
+				if (Validador.validarSenha(senha)) {
+					if(this.confirmaSenha.equals(senha)) {
 			
 					pe = new BCryptPasswordEncoder();					
 //					// Gera senha randomicamente
@@ -80,10 +81,13 @@ public class UsuarioBean extends AbstractBean implements Serializable  {
 
 				item = this.service.save(item);
 
-				FacesUtils.addGlobalMessage(FacesMessageSeverity.INFO, "Cadastro Realizado com sucesso!");
+				
 				FacesUtils.redirect("/login.xhtml");
+					} else {
+						FacesUtils.addGlobalMessage(FacesMessageSeverity.ERROR,"Senhas não conferem, por favor verifique!");
+					}
 				} else {
-					FacesUtils.addGlobalMessage(FacesMessageSeverity.ERROR,"Senhas não conferem, por favor verifique!");
+					FacesUtils.addGlobalMessage(FacesMessageSeverity.ERROR,"A senha deve conter de 6 a 12 caracteres!");
 				}
 			} else {
 				FacesUtils.addGlobalMessage(FacesMessageSeverity.ERROR,"Endereço de e-mail inválido, por favor verifique!");

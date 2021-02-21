@@ -18,25 +18,25 @@
 				<h:form id="formPelada">
 					<div class="form-group">
 						<h:outputLabel for="inputNome" value="Nome do evento esportivo: " />
-						<p:inputText id="inputNome" value="#{usuarioPeladaBean.pelada.nome}" maxlength="100"
+						<p:inputText id="inputNome" value="#{usuarioPeladaBean.pelada.nome}" maxlength="100" required="true" requiredMessage="Campo Nome Obrigatório"
 							styleClass="form-control" />
 					</div>
 					<div class="form-group">
 					
 						<h:outputLabel for="inputData" value="Data e Hora:" />
-						<p:datePicker id="basic" value="#{usuarioPeladaBean.pelada.data}" style="width: 100%"  pattern="dd/MM/yyyy" showTime="true" converter="localDateTimeFacesConverter"/>
+						<p:datePicker id="basic" value="#{usuarioPeladaBean.pelada.data}" style="width: 100%"  pattern="dd/MM/yyyy" showTime="true" required="true" requiredMessage="Campo Data Obrigatório" converter="localDateTimeFacesConverter"/>
 					</div>						
 	
 					<div class="form-group">
 						<h:outputLabel for="inputLocal" value="Local:" />
-						<p:inputText id="inputData" value="#{usuarioPeladaBean.pelada.local}" maxlength="100"
+						<p:inputText id="inputData" value="#{usuarioPeladaBean.pelada.local}" maxlength="100" required="true" requiredMessage="Campo Data Obrigatório"
 							styleClass="form-control" />
 					</div>	
 					
 					<div class="form-group">
 						<h:outputLabel for="usuariosMenu" value="Integrantes: " /> <br/>
 						<p:selectCheckboxMenu id="usuariosMenu" value="#{usuarioPeladaBean.usuariosSelecionados}" label="Usuários" style="max-width: 94%; margin-right: 10px"
-                            converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains"  >
+                            converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains"  required="true" requiredMessage="Campo Integrantes Obrigatório">
 			            	<f:selectItems value="#{usuarioPeladaBean.usuarios}"  var="u" itemLabel="#{u.nome}" itemValue="#{u}"  />
 				        </p:selectCheckboxMenu>
 					    <p:commandButton id="btnIncluir" value="Incluir" type="submit" title="Incluir" style="position: absolute; margin-top: .3rem;"

@@ -15,9 +15,7 @@ public class Validador {
 	public static boolean validarSenha(String password) {
 		PasswordValidator validator = new PasswordValidator (Arrays.asList(
 
-                // at least 8 characters
-                new LengthRule(4, 12),
-
+                new LengthRule(6, 12),
                 // no whitespace
                 new WhitespaceRule()
         ));

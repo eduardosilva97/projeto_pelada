@@ -20,6 +20,7 @@ public class WebApplicationConfigurerAdapter extends WebMvcConfigurerAdapter {
 	@Bean
     public MessageSource messageSource() {
     	ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+    	 messageSource.setBasenames("br.com.marcacao.peladas.i18n");
         return messageSource;
     }
 
